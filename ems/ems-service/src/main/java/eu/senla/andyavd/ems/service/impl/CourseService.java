@@ -49,17 +49,17 @@ public class CourseService implements ICourseService {
 	}
 
 	@Override
-	public void addLessonToCourse(Long idLesson, Long idCourse) {
-		courseDao.addLessonToCourse(idLesson, idCourse);
+	public void addLessonToCourse(Long lessonId, Long courseId) {
+		courseDao.addLessonToCourse(lessonId, courseId);
 	}
 
 	@Override
-	public void removeLessonFromCourse(Long idLesson) {
-		courseDao.removeLessonFromCourse(idLesson);
+	public void removeLessonFromCourse(Long lessonId) {
+		courseDao.removeLessonFromCourse(lessonId);
 	}
 
 	@Override
-	public List<Lesson> getLessonsByCourseId(Long idCourse) {
-		return courseDao.getLessonsByCourseId(idCourse);
+	public List<Lesson> getLessonsByCourseId(Long courseId) {
+		return courseDao.getLessonsByCourseId(courseId);
 	}
 }

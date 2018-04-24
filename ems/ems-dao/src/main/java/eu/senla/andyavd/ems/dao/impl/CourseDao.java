@@ -20,10 +20,10 @@ import java.util.List;
 @Repository
 public class CourseDao extends GenericDao<Course> implements ICourseDao {
 
-	private static final String ADD_LESSON_TO_COURSE_QUERY = "update Lesson set course.id = :idCourse where id= :idLesson";
-	private static final String REMOVE_LESSON_FROM_COURSE_QUERY = "update Lesson set course.id = null where id= :idLesson";
-	private static final String LESSON_ID = "idLesson";
-	private static final String COURSE_ID = "idCourse";
+	private static final String ADD_LESSON_TO_COURSE_QUERY = "update Lesson set course.id = :courseId where id= :lessonId";
+	private static final String REMOVE_LESSON_FROM_COURSE_QUERY = "update Lesson set course.id = null where id= :lessonId";
+	private static final String LESSON_ID = "lessonId";
+	private static final String COURSE_ID = "courseId";
 
 	@Override
 	public Class<Course> getGenericClass() {
@@ -31,29 +31,29 @@ public class CourseDao extends GenericDao<Course> implements ICourseDao {
 	}
 
 	@Override
-	public void addLessonToCourse(Long idLesson, Long idCourse) {
+	public void addLessonToCourse(Long lessonId, Long courseId) {
 		Session session = getSession();
 		Query query = session.createQuery(ADD_LESSON_TO_COURSE_QUERY);
-		query.setParameter(LESSON_ID, idLesson);
-		query.setParameter(COURSE_ID, idCourse);
+		query.setParameter(LESSON_ID, lessonId);
+		query.setParameter(COURSE_ID, courseId);
 		query.executeUpdate();
 	}
 
 	@Override
-	public void removeLessonFromCourse(Long idLesson) {
+	public void removeLessonFromCourse(Long lessonId) {
 		Session session = getSession();
 		Query query = session.createQuery(REMOVE_LESSON_FROM_COURSE_QUERY);
-		query.setParameter(COURSE_ID, idLesson);
+		query.setParameter(COURSE_ID, lessonId);
 		query.executeUpdate();
 	}
 
 	@Override
-	public List<Lesson> getLessonsByCourseId(Long idCourse) {
+	public List<Lesson> getLessonsByCourseId(Long courseId) {
 		Session session = getSession();
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
 		Root<Lesson> root = query.from(Lesson.class);
-		query.select(root).where(builder.equal(root.join(Lesson_.course).get(Course_.id), idCourse));
+		query.select(root).where(builder.equal(root.join(Lesson_.course).get(Course_.id), courseId));
 		TypedQuery<Lesson> result = session.createQuery(query);
 		return result.getResultList();
 	}

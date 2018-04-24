@@ -17,9 +17,9 @@ public interface ICourseService {
 
 	List<Course> getAll();
 	
-	void addLessonToCourse(Long idLesson, Long idCourse);
+	void addLessonToCourse(Long lessonId, Long courseId);
 
-	void removeLessonFromCourse(Long idLesson);
+	void removeLessonFromCourse(Long lessonId);
 
-	List<Lesson> getLessonsByCourseId(Long idCourse);
+	List<Lesson> getLessonsByCourseId(Long courseId);
 }

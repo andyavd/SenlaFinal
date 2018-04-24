@@ -6,11 +6,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import eu.senla.andyavd.ems.dao.api.IUserDao;
 import eu.senla.andyavd.ems.model.entities.User;
 import eu.senla.andyavd.ems.model.entities.User_;
 
+@Repository
 public class UserDao extends GenericDao<User> implements IUserDao {
 
 	@Override
