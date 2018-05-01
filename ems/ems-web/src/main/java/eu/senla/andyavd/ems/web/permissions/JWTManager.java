@@ -26,7 +26,7 @@ import net.minidev.json.JSONObject;
 public class JWTManager {
 
 	private static final JWSAlgorithm algorithm = JWSAlgorithm.HS256;
-	private static final String issuer = "webapp";
+	private static final String issuer = "ems-web";
 	private static final TemporalAmount TOKEN_VALIDITY = Duration.ofHours(4L);
 	private static final Logger logger = LogManager.getLogger(JWTManager.class);
 	private static final byte[] sharedKey = new byte[32];

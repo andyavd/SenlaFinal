@@ -25,7 +25,7 @@ public class Timetable extends AEntity {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "groupp_id")
-	private Group groupp;
+	private Group group;
 
 	@ManyToMany(mappedBy = "timetables")
 	private List<Lesson> lessons;
@@ -46,12 +46,12 @@ public class Timetable extends AEntity {
 		this.grades = grades;
 	}
 
-	public Group getGroupp() {
-		return groupp;
+	public Group getGroup() {
+		return group;
 	}
 
-	public void setGroupp(Group groupp) {
-		this.groupp = groupp;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	public List<Lesson> getLessons() {

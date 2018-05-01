@@ -19,10 +19,10 @@ public class Group extends AEntity {
 	@Column(name = "groupp_name")
 	private String name;
 
-	@OneToMany(mappedBy = "groupp", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Student> students;
 
-	@OneToMany(mappedBy = "groupp", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Timetable> timetables;
 	
 	public String getName() {
@@ -51,5 +51,13 @@ public class Group extends AEntity {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	
+	public List<Timetable> getTimetables() {
+		return timetables;
+	}
+	
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
 	}
 }

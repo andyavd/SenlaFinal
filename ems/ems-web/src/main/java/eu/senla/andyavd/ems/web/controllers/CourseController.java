@@ -59,4 +59,14 @@ public class CourseController {
 	public List<GetDto> getAllCourses() {
 		return courseService.getAll().stream().map(GetDto::new).collect(Collectors.toList());
 	}
+	
+	@RequestMapping(value = "{course}/add/lesson/{lesson}", method = RequestMethod.POST)
+	public void addLessonToCourse(@PathVariable("lesson") Long lessonId, @PathVariable("course") Long courseId) {
+		courseService.addLessonToCourse(lessonId, courseId);
+	}
+
+	@RequestMapping(value = "{course}/remove/lesson/{lesson}", method = RequestMethod.POST)
+	public void removeLessonFromCourse(@PathVariable("lesson") Long lessonId) {
+		courseService.removeLessonFromCourse(lessonId);
+	}
 }

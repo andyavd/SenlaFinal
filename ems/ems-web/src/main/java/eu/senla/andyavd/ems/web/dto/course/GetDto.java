@@ -3,6 +3,7 @@ package eu.senla.andyavd.ems.web.dto.course;
 import eu.senla.andyavd.ems.model.entities.Course;
 
 public class GetDto {
+	
 	private Long id;
 	private String title;
 

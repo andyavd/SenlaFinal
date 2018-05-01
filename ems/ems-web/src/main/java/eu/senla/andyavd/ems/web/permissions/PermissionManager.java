@@ -45,7 +45,7 @@ public class PermissionManager {
 		}
 	}
 
-	public static boolean checkPrivilegie(String path, Role role) {
+	public static boolean checkPermission(String path, Role role) {
 		Set<Role> roles = permissionMap.get(path);
 		if (roles != null) {
 			return roles.contains(role);

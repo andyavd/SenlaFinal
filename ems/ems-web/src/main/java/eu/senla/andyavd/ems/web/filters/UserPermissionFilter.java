@@ -13,17 +13,17 @@ import eu.senla.andyavd.ems.utils.supporters.ICurrentUserSupporter;
 import eu.senla.andyavd.ems.web.permissions.PermissionManager;
 
 public class UserPermissionFilter extends RequestContextFilter implements ICurrentUserSupporter {
-	private static final Integer STATUS_CODE_FORBIDDEN = 403;
+	private static final Integer FORBIDDEN = 403;
 
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String path = request.getServletPath();
-		if (PermissionManager.checkPrivilegie(path.replaceAll("[0-9]+", "*"), getCurrentUser().getRole())) {
+		if (PermissionManager.checkPermission(path.replaceAll("[0-9]+", "*"), getCurrentUser().getRole())) {
 			chain.doFilter(request, response);
 		} else {
 			response.setContentLength(0);
-			response.setStatus(STATUS_CODE_FORBIDDEN);
+			response.setStatus(FORBIDDEN);
 		}
 	}
 }

@@ -1,9 +1,8 @@
 package eu.senla.andyavd.ems.model.entities;
 
-import eu.senla.andyavd.ems.model.entities.enums.Role;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import java.util.List;
+import eu.senla.andyavd.ems.model.entities.enums.Role;
 
 @Entity
 @Table(name = "student")
@@ -20,40 +19,29 @@ import java.util.List;
 public class Student extends User {
 
 	{
-		this.role = Role.TEACHER;
+		this.role = Role.STUDENT;
 	}
-
-	@Column(name = "education")
-	private String education;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "groupp_id")
-	private Group groupp;
+	private Group group;
 
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-	private List<Grade> grades;
-
-	public String getEducation() {
-		return education;
-	}
-
-	public void setEducation(String education) {
-		this.education = education;
-	}
+//	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+//	private List<Grade> grades;
 
 	public Group getGroup() {
-		return groupp;
+		return group;
 	}
 
-	public void setGroup(Group groupp) {
-		this.groupp = groupp;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
-	public List<Grade> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(List<Grade> grades) {
-		this.grades = grades;
-	}
+//	public List<Grade> getGrades() {
+//		return grades;
+//	}
+//
+//	public void setGrades(List<Grade> grades) {
+//		this.grades = grades;
+//	}
 }

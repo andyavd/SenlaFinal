@@ -12,7 +12,7 @@ public abstract class Timetable_ extends eu.senla.andyavd.ems.model.entities.AEn
 
 	public static volatile SingularAttribute<Timetable, Date> date;
 	public static volatile ListAttribute<Timetable, Grade> grades;
-	public static volatile SingularAttribute<Timetable, Group> groupp;
+	public static volatile SingularAttribute<Timetable, Group> group;
 	public static volatile ListAttribute<Timetable, Lesson> lessons;
 
 }

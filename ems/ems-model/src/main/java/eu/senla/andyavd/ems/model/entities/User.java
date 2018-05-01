@@ -38,6 +38,12 @@ public class User extends AEntity {
 	@Column(name = "city", table = "user_details")
 	protected String city;
 
+	@Column(name = "academic_degree", table = "user_details")
+	protected String degree;
+	
+	@Column(name = "education", table = "user_details")
+	protected String education;
+	
 	@Column(name = "role", insertable = false, updatable = false)
 	@Enumerated(value = EnumType.STRING)
 	protected Role role;
@@ -64,6 +70,22 @@ public class User extends AEntity {
 		this.lastName = lastName;
 	}
 
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+	
 	public Role getRole() {
 		return role;
 	}

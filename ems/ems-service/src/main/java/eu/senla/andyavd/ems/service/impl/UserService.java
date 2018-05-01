@@ -59,9 +59,9 @@ public class UserService implements IUserService {
 	public LoginCode checkUser(String login, String password) {
 		try {
 			User user = userDao.getUserByLogin(login);
-			return user.getPassword().equals(password) ? LoginCode.SUCCESS_AUTH : LoginCode.WRONG_PASSWORD;
+			return user.getPassword().equals(password) ? LoginCode.SUCCESSFULL_AUTHENTIFICATION : LoginCode.WRONG_PASSWORD;
 		} catch (NoResultException e) {
-			return LoginCode.LOGIN_NOT_EXIST;
+			return LoginCode.LOGIN_DOESNOT_EXIST;
 		}
 	}
 
