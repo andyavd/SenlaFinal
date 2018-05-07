@@ -1,6 +1,6 @@
 package eu.senla.andyavd.ems.dao.impl;
 
-import eu.senla.andyavd.ems.dao.api.ITeacherDao;
+import eu.senla.andyavd.ems.api.dao.ITeacherDao;
 import eu.senla.andyavd.ems.model.entities.Course;
 import eu.senla.andyavd.ems.model.entities.Course_;
 import eu.senla.andyavd.ems.model.entities.Teacher;

@@ -6,25 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.IGroupDao;
-import eu.senla.andyavd.ems.dao.api.IStudentDao;
-import eu.senla.andyavd.ems.dao.api.ITimetableDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.IGroupDao;
+import eu.senla.andyavd.ems.api.dao.IStudentDao;
+import eu.senla.andyavd.ems.api.dao.ITimetableDao;
+import eu.senla.andyavd.ems.api.service.IGroupService;
 import eu.senla.andyavd.ems.model.entities.Group;
 import eu.senla.andyavd.ems.model.entities.Student;
 import eu.senla.andyavd.ems.model.entities.Timetable;
-import eu.senla.andyavd.ems.service.api.IGroupService;
 
 @Transactional
 @Service
 public class GroupService implements IGroupService {
 
 	@Autowired
-	IGroupDao groupDao;
+	private IGroupDao groupDao;
 	@Autowired
-	IStudentDao studentDao;
+	private IStudentDao studentDao;
 	@Autowired
-	ITimetableDao timetableDao;
+	private ITimetableDao timetableDao;
 	
 	private IGenericDao<Group> getDao(){
 		return groupDao;

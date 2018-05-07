@@ -1,6 +1,7 @@
 package eu.senla.andyavd.ems.web.dto.user;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class RegistrationDto {
 	private Date birthday;
 	private String education;
 	private String degree;
+	private List<Integer> grades;
 	
 	public String getLogin() {
 		return login;
@@ -86,5 +88,11 @@ public class RegistrationDto {
 	}
 	public void setDegree(String degree) {
 		this.degree = degree;
+	}
+	public List<Integer> getGrades() {
+		return grades;
+	}
+	public void setGrades(List<Integer> grades) {
+		this.grades = grades;
 	}
 }

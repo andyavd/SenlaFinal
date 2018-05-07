@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import eu.senla.andyavd.ems.dao.api.ICourseDao;
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.ILessonDao;
+import eu.senla.andyavd.ems.api.dao.ICourseDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.ILessonDao;
+import eu.senla.andyavd.ems.api.service.ILessonService;
 import eu.senla.andyavd.ems.model.entities.Course;
 import eu.senla.andyavd.ems.model.entities.Lesson;
-import eu.senla.andyavd.ems.service.api.ILessonService;
 
 @Transactional
 @Service
 public class LessonService implements ILessonService {
 
 	@Autowired
-	ILessonDao lessonDao;
+	private ILessonDao lessonDao;
 	
 	@Autowired
-	ICourseDao courseDao;
+	private ICourseDao courseDao;
 
 	private IGenericDao<Lesson> getDao() {
 		return lessonDao;

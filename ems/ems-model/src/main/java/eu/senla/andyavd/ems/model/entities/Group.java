@@ -5,7 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,14 +23,14 @@ public class Group extends AEntity {
 
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Timetable> timetables;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id")
+	private Course course;
 	
 	public String getName() {
 		return name;
 	}
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "groups_course", joinColumns = @JoinColumn(name = "groupp_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
-	private Course course;
 	
 	public void setName(String name) {
 		this.name = name;

@@ -1,5 +1,6 @@
 package eu.senla.andyavd.ems.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +18,12 @@ public class Course extends AEntity {
 	@Column(name = "title")
 	private String title;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-	private List<Group> groupps;
+	private List<Group> groups;
 
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private List<Lesson> lessons;
@@ -44,10 +45,10 @@ public class Course extends AEntity {
 	}
 
 	public List<Group> getGroups() {
-		return groupps;
+		return groups;
 	}
 
-	public void setGroups(List<Group> groupps) {
-		this.groupps = groupps;
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 }

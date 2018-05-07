@@ -1,6 +1,6 @@
 package eu.senla.andyavd.ems.dao.impl;
 
-import eu.senla.andyavd.ems.dao.api.ITimetableDao;
+import eu.senla.andyavd.ems.api.dao.ITimetableDao;
 import eu.senla.andyavd.ems.model.entities.Group_;
 import eu.senla.andyavd.ems.model.entities.Timetable;
 import eu.senla.andyavd.ems.model.entities.Timetable_;

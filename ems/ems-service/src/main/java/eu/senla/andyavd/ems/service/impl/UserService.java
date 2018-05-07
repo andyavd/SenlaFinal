@@ -1,10 +1,10 @@
 package eu.senla.andyavd.ems.service.impl;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.IUserDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.IUserDao;
+import eu.senla.andyavd.ems.api.service.IUserService;
 import eu.senla.andyavd.ems.model.entities.User;
 import eu.senla.andyavd.ems.model.entities.enums.LoginCode;
-import eu.senla.andyavd.ems.service.api.IUserService;
 
 import javax.persistence.NoResultException;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class UserService implements IUserService {
 
 	@Autowired
-	IUserDao userDao;
+	private IUserDao userDao;
 
 	private IGenericDao<User> getDao() {
 		return userDao;

@@ -1,6 +1,6 @@
 package eu.senla.andyavd.ems.model.entities;
 
-import java.util.List;
+import eu.senla.andyavd.ems.model.entities.enums.Role;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -11,12 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import eu.senla.andyavd.ems.model.entities.enums.Role;
+import java.util.List;
+
 
 @Entity
 @Table(name = "student")
 @DiscriminatorValue(value = Role.Values.STUDENT)
-public class Student extends User {
+public class Student extends Person {
 
 	{
 		this.role = Role.STUDENT;
@@ -26,8 +27,8 @@ public class Student extends User {
 	@JoinColumn(name = "groupp_id")
 	private Group group;
 
-//	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-//	private List<Grade> grades;
+	@OneToMany(mappedBy = "timetable", fetch = FetchType.LAZY)
+	private List<Grade> grades;
 
 	public Group getGroup() {
 		return group;
@@ -37,11 +38,11 @@ public class Student extends User {
 		this.group = group;
 	}
 
-//	public List<Grade> getGrades() {
-//		return grades;
-//	}
-//
-//	public void setGrades(List<Grade> grades) {
-//		this.grades = grades;
-//	}
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
 }

@@ -10,8 +10,8 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Course_ extends eu.senla.andyavd.ems.model.entities.AEntity_ {
 
 	public static volatile SingularAttribute<Course, Teacher> teacher;
+	public static volatile ListAttribute<Course, Group> groups;
 	public static volatile SingularAttribute<Course, String> title;
-	public static volatile ListAttribute<Course, Group> groupps;
 	public static volatile ListAttribute<Course, Lesson> lessons;
 
 }

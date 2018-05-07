@@ -1,5 +1,9 @@
 package eu.senla.andyavd.ems.web.controllers;
 
+import eu.senla.andyavd.ems.api.service.IGroupService;
+import eu.senla.andyavd.ems.model.entities.Group;
+import eu.senla.andyavd.ems.web.dto.group.GroupDto;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import eu.senla.andyavd.ems.model.entities.Group;
-import eu.senla.andyavd.ems.service.api.IGroupService;
-import eu.senla.andyavd.ems.web.dto.group.CreateDto;
-import eu.senla.andyavd.ems.web.dto.group.GetDto;
-import eu.senla.andyavd.ems.web.dto.group.GroupDto;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,18 +22,18 @@ import java.util.stream.Collectors;
 public class GroupController {
 
 	@Autowired
-	IGroupService groupService;
+	private IGroupService groupService;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
-	public GetDto getGroup(@PathVariable("id") Long id) {
-		return new GetDto(groupService.get(id));
+	public GroupDto getGroup(@PathVariable("id") Long id) {
+		return new GroupDto(groupService.get(id));
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public GetDto createGroup(@Valid @RequestBody CreateDto dto) {
+	public GroupDto createGroup(@Valid @RequestBody GroupDto dto) {
 		Group group = new Group();
 		group.setName(dto.getName());
-		return new GetDto(groupService.create(group));
+		return new GroupDto(groupService.create(group));
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -56,8 +54,8 @@ public class GroupController {
 	}
 
 	@RequestMapping(value="all", method = RequestMethod.GET, produces = "application/json")
-	public List<GetDto> getAllGroups() {
-		return groupService.getAll().stream().map(GetDto::new).collect(Collectors.toList());
+	public List<GroupDto> getAllGroups() {
+		return groupService.getAll().stream().map(GroupDto::new).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "{group}/add/timetable/{timetable}", method = RequestMethod.GET)

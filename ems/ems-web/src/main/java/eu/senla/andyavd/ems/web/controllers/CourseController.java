@@ -1,10 +1,9 @@
 package eu.senla.andyavd.ems.web.controllers;
 
-import eu.senla.andyavd.ems.service.api.ICourseService;
+import eu.senla.andyavd.ems.api.service.ICourseService;
+import eu.senla.andyavd.ems.api.service.ITeacherService;
 import eu.senla.andyavd.ems.model.entities.Course;
-import eu.senla.andyavd.ems.web.dto.course.CreateDto;
-import eu.senla.andyavd.ems.web.dto.course.GetDto;
-import eu.senla.andyavd.ems.web.dto.course.UpdateDto;
+import eu.senla.andyavd.ems.web.dto.course.CourseDto;
 
 import javax.validation.Valid;
 
@@ -24,18 +23,21 @@ import java.util.stream.Collectors;
 public class CourseController {
 
 	@Autowired
-	ICourseService courseService;
+	private ICourseService courseService;
+	
+	@Autowired
+	private ITeacherService teacherService;
 
 	@RequestMapping(value = "{id}/", method = RequestMethod.GET)
-	public GetDto getCourse(@PathVariable("id") Long id) {
-		return new GetDto(courseService.get(id));
+	public CourseDto getCourse(@PathVariable("id") Long id) {
+		return new CourseDto(courseService.get(id));
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public GetDto createCourse(@Valid @RequestBody CreateDto dto) {
+	public CourseDto createCourse(@Valid @RequestBody CourseDto dto) {
 		Course course = new Course();
 		course.setTitle(dto.getTitle());
-		return new GetDto(courseService.create(course));
+		return new CourseDto(courseService.create(course));
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -46,18 +48,22 @@ public class CourseController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
-	public void updateCourse(@Valid @RequestBody UpdateDto dto, @PathVariable("id") Long id) {
+	public void updateCourse(@Valid @RequestBody CourseDto dto, @PathVariable("id") Long id) {
 		Course course = courseService.get(id);
 		String name = dto.getTitle();
 		if (!StringUtils.isEmpty(name)) {
 			course.setTitle(name);
 		}
+		Long teacher = dto.getTeacher();
+		if(teacher != null && teacher != 0) {
+			course.setTeacher(teacherService.get(teacher));
+		}
 		courseService.update(course);
 	}
 
 	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public List<GetDto> getAllCourses() {
-		return courseService.getAll().stream().map(GetDto::new).collect(Collectors.toList());
+	public List<CourseDto> getAllCourses() {
+		return courseService.getAll().stream().map(CourseDto::new).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "{course}/add/lesson/{lesson}", method = RequestMethod.POST)

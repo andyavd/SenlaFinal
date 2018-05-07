@@ -1,6 +1,10 @@
 package eu.senla.andyavd.ems.web.controllers;
 
-import java.util.Date;
+import eu.senla.andyavd.ems.api.service.IUserService;
+import eu.senla.andyavd.ems.model.entities.User;
+import eu.senla.andyavd.ems.utils.supporters.ICurrentUserSupporter;
+import eu.senla.andyavd.ems.web.dto.user.DetailsDto;
+import eu.senla.andyavd.ems.web.dto.user.UserDto;
 
 import javax.validation.Valid;
 
@@ -12,23 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import eu.senla.andyavd.ems.model.entities.User;
-import eu.senla.andyavd.ems.service.api.IUserService;
-import eu.senla.andyavd.ems.utils.supporters.ICurrentUserSupporter;
-import eu.senla.andyavd.ems.web.dto.user.DetailsDto;
-import eu.senla.andyavd.ems.web.dto.user.GetDto;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/user/")
 public class UserController implements ICurrentUserSupporter {
 
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 
-	// to test the get method
 	@RequestMapping(value = "{id}/", method = RequestMethod.GET)
-	public GetDto getUserById(@PathVariable("id") Long id) {
-		return new GetDto(userService.get(id));
+	public UserDto getUserById(@PathVariable("id") Long id) {
+		return new UserDto(userService.get(id));
 	}
 
 	@RequestMapping(value = "profile/details/", method = RequestMethod.GET)
@@ -38,12 +37,12 @@ public class UserController implements ICurrentUserSupporter {
 
 	@RequestMapping(value = "name", method = RequestMethod.GET)
 	public String getUserName() {
-		return "{\"name\" : \"" + getCurrentUser().getFirstName() + "_" + getCurrentUser().getLastName() + "\"}";
+		return "{\"User name is\" : \"" + getCurrentUser().getFirstName() + "_" + getCurrentUser().getLastName() + "\"}";
 	}
 
 	@RequestMapping(value = "role", method = RequestMethod.GET)
 	public String getUserRole() {
-		return "{\"role\" : \"" + getCurrentUser().getRole().getValue() + "\"}";
+		return "{\"User role is\" : \"" + getCurrentUser().getRole().getValue() + "\"}";
 	}
 
 	@RequestMapping(value = "profile/details/", method = RequestMethod.POST)

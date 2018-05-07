@@ -2,7 +2,7 @@ package eu.senla.andyavd.ems.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import eu.senla.andyavd.ems.dao.api.IGroupDao;
+import eu.senla.andyavd.ems.api.dao.IGroupDao;
 import eu.senla.andyavd.ems.model.entities.Group;
 
 @Repository

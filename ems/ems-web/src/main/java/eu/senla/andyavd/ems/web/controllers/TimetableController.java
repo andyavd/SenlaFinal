@@ -1,13 +1,11 @@
 package eu.senla.andyavd.ems.web.controllers;
 
+import eu.senla.andyavd.ems.api.service.IGroupService;
+import eu.senla.andyavd.ems.api.service.ILessonService;
+import eu.senla.andyavd.ems.api.service.ITimetableService;
 import eu.senla.andyavd.ems.model.entities.Timetable;
-import eu.senla.andyavd.ems.service.api.IGroupService;
-import eu.senla.andyavd.ems.service.api.ILessonService;
-import eu.senla.andyavd.ems.service.api.ITimetableService;
 import eu.senla.andyavd.ems.utils.DateFormatterUtil;
-import eu.senla.andyavd.ems.web.dto.timetable.CreateDto;
-import eu.senla.andyavd.ems.web.dto.timetable.GetDto;
-import eu.senla.andyavd.ems.web.dto.timetable.UpdateDto;
+import eu.senla.andyavd.ems.web.dto.timetable.TimetableDto;
 
 import javax.validation.Valid;
 
@@ -27,23 +25,23 @@ import java.util.stream.Collectors;
 public class TimetableController {
 
 	@Autowired
-	ITimetableService timetableService;
+	private ITimetableService timetableService;
 	@Autowired
-	IGroupService groupService;
+	private IGroupService groupService;
 	@Autowired
-	ILessonService lessonService;
+	private ILessonService lessonService;
 
 	@RequestMapping(value = "{id}/", method = RequestMethod.GET, produces = "application/json")
-	public GetDto getTimetable(@PathVariable("id") Long id) {
-		return new GetDto(timetableService.get(id));
+	public TimetableDto getTimetable(@PathVariable("id") Long id) {
+		return new TimetableDto(timetableService.get(id));
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public GetDto createTimetable(@Valid @RequestBody CreateDto dto) {
+	public TimetableDto createTimetable(@Valid @RequestBody TimetableDto dto) {
 		Timetable timetable = new Timetable();
 		timetable.setDate(DateFormatterUtil.dateFromString(dto.getDate()));
-		timetable.setGroup(groupService.get(dto.getGroup()));
-		return new GetDto(timetableService.create(timetable));
+		timetable.setGroup(groupService.get(dto.getGroupId()));
+		return new TimetableDto(timetableService.create(timetable));
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -54,13 +52,13 @@ public class TimetableController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
-	public void updateTimetable(@Valid @RequestBody UpdateDto dto, @PathVariable("id") Long id) {
+	public void updateTimetable(@Valid @RequestBody TimetableDto dto, @PathVariable("id") Long id) {
 		Timetable timetable = timetableService.get(id);
 		Date date = DateFormatterUtil.dateFromString(dto.getDate());
 		if (date != null) {
 			timetable.setDate(date);
 		}
-		Long groupId = dto.getGroup();
+		Long groupId = dto.getGroupId();
 		if (groupId != null && groupId != 0) {
 			timetable.setGroup(groupService.get(groupId));
 		}
@@ -68,13 +66,13 @@ public class TimetableController {
 	}
 
 	@RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
-	public List<GetDto> getAllTimetables() {
-		return timetableService.getAll().stream().map(GetDto::new).collect(Collectors.toList());
+	public List<TimetableDto> getAllTimetables() {
+		return timetableService.getAll().stream().map(TimetableDto::new).collect(Collectors.toList());
 	}
 
 	@RequestMapping(value = "group/{group}", method = RequestMethod.GET)
-	public List<GetDto> getTimetablesByGroupId(@PathVariable("group") Long groupId) {
-		List<GetDto> result = timetableService.getTimetablesByGroupId(groupId).stream().map(GetDto::new)
+	public List<TimetableDto> getTimetablesByGroupId(@PathVariable("group") Long groupId) {
+		List<TimetableDto> result = timetableService.getTimetablesByGroupId(groupId).stream().map(TimetableDto::new)
 				.collect(Collectors.toList());
 		return result;
 	}

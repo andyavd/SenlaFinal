@@ -1,12 +1,12 @@
 package eu.senla.andyavd.ems.web.controllers;
 
+import eu.senla.andyavd.ems.api.service.IStudentService;
+import eu.senla.andyavd.ems.api.service.ITeacherService;
+import eu.senla.andyavd.ems.api.service.IUserService;
+import eu.senla.andyavd.ems.model.entities.Person;
 import eu.senla.andyavd.ems.model.entities.Student;
 import eu.senla.andyavd.ems.model.entities.Teacher;
-import eu.senla.andyavd.ems.model.entities.User;
 import eu.senla.andyavd.ems.model.entities.enums.LoginCode;
-import eu.senla.andyavd.ems.service.api.IStudentService;
-import eu.senla.andyavd.ems.service.api.ITeacherService;
-import eu.senla.andyavd.ems.service.api.IUserService;
 import eu.senla.andyavd.ems.web.dto.user.CodeResponseDto;
 import eu.senla.andyavd.ems.web.dto.user.CredentialsDto;
 import eu.senla.andyavd.ems.web.dto.user.RegistrationDto;
@@ -24,30 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 	@Autowired
-	ITeacherService teacherService;
+	private ITeacherService teacherService;
 	@Autowired
-	IStudentService studentService;
+	private IStudentService studentService;
 
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
 	public CodeResponseDto registerUser(@Valid @RequestBody RegistrationDto dto) {
 		if (!userService.isExistingUser(dto.getLogin())) {
 			String role = dto.getRole();
-			User user = role.equals("STUDENT") ? new Student() : new Teacher();
-			user.setLogin(dto.getLogin());
-			user.setPassword(dto.getPassword());
-			user.setFirstName(dto.getFirstName());
-			user.setLastName(dto.getLastName());
-			user.setEmail(dto.getEmail());
-			user.setCity(dto.getCity());
-			user.setBirthday(dto.getBirthday());
+			Person person = role.equals("STUDENT") ? new Student() : new Teacher();
+			person.setLogin(dto.getLogin());
+			person.setPassword(dto.getPassword());
+			person.setFirstName(dto.getFirstName());
+			person.setLastName(dto.getLastName());
+			person.setEmail(dto.getEmail());
+			person.setCity(dto.getCity());
+			person.setBirthday(dto.getBirthday());
 			if (role.equals("STUDENT")) {
-				user.setEducation(dto.getEducation());
-				studentService.create((Student) user);
+				person.setEducation(dto.getEducation());
+				studentService.create((Student) person);
 			} else {
-				user.setDegree(dto.getDegree());
-				teacherService.create((Teacher) user);
+				person.setDegree(dto.getDegree());
+				teacherService.create((Teacher) person);
 			}
 			return new CodeResponseDto(LoginCode.LOGIN_DOESNOT_EXIST);
 		} else {

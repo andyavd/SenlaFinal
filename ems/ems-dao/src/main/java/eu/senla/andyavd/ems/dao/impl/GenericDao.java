@@ -1,6 +1,6 @@
 package eu.senla.andyavd.ems.dao.impl;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
 import eu.senla.andyavd.ems.model.entities.AEntity;
 
 import javax.persistence.TypedQuery;

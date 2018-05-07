@@ -28,5 +28,6 @@
 		<module>ems-service</module>
 		<module>ems-utils</module>
     <module>ems-web</module>
-  </modules>
+    <module>ems-api</module>
+	</modules>
 </project>

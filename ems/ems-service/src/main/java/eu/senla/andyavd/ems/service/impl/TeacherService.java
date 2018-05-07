@@ -1,10 +1,10 @@
 package eu.senla.andyavd.ems.service.impl;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.ITeacherDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.ITeacherDao;
+import eu.senla.andyavd.ems.api.service.ITeacherService;
 import eu.senla.andyavd.ems.model.entities.Course;
 import eu.senla.andyavd.ems.model.entities.Teacher;
-import eu.senla.andyavd.ems.service.api.ITeacherService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 public class TeacherService implements ITeacherService {
 
 	@Autowired
-	ITeacherDao teacherDao;
+	private ITeacherDao teacherDao;
 
 	private IGenericDao<Teacher> getDao() {
 		return teacherDao;

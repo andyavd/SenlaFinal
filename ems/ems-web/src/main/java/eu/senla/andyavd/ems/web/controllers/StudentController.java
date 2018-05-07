@@ -1,9 +1,8 @@
 package eu.senla.andyavd.ems.web.controllers;
 
+import eu.senla.andyavd.ems.api.service.IStudentService;
 import eu.senla.andyavd.ems.model.entities.Student;
-import eu.senla.andyavd.ems.service.api.IGroupService;
-import eu.senla.andyavd.ems.service.api.IStudentService;
-import eu.senla.andyavd.ems.web.dto.student.GetDto;
+import eu.senla.andyavd.ems.web.dto.student.StudentDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +18,16 @@ import java.util.stream.Collectors;
 public class StudentController {
 
 	@Autowired
-	IStudentService studentService;
-	@Autowired
-	IGroupService groupService;
-
+	private IStudentService studentService;
+	
 	@RequestMapping(value = "{id}/", method = RequestMethod.GET, produces = "application/json")
-	public GetDto getStudent(@PathVariable("id") Long id) {
-		return new GetDto(studentService.get(id));
+	public StudentDto getStudent(@PathVariable("id") Long id) {
+		return new StudentDto(studentService.get(id));
 	}
 
 	@RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
-	public List<GetDto> getAllStudents() {
-		return studentService.getAll().stream().map(GetDto::new).collect(Collectors.toList());
+	public List<StudentDto> getAllStudents() {
+		return studentService.getAll().stream().map(StudentDto::new).collect(Collectors.toList());
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -41,15 +38,15 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "group/{group}", method = RequestMethod.GET)
-	public List<GetDto> getStudentsByGroupId(@PathVariable("group") Long groupId) {
-		List<GetDto> result = studentService.getStudentsByGroupId(groupId).stream().map(GetDto::new)
+	public List<StudentDto> getStudentsByGroupId(@PathVariable("group") Long groupId) {
+		List<StudentDto> result = studentService.getStudentsByGroupId(groupId).stream().map(StudentDto::new)
 				.collect(Collectors.toList());
 		return result;
 	}
 
 	@RequestMapping(value = "group/null", method = RequestMethod.GET)
-	public List<GetDto> getStudentsWithoutGroup() {
-		List<GetDto> result = studentService.getStudentsWithoutGroup().stream().map(GetDto::new)
+	public List<StudentDto> getStudentsWithoutGroup() {
+		List<StudentDto> result = studentService.getStudentsWithoutGroup().stream().map(StudentDto::new)
 				.collect(Collectors.toList());
 		return result;
 	}

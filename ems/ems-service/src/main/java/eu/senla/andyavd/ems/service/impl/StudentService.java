@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.IGroupDao;
-import eu.senla.andyavd.ems.dao.api.IStudentDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.IGroupDao;
+import eu.senla.andyavd.ems.api.dao.IStudentDao;
+import eu.senla.andyavd.ems.api.service.IStudentService;
 import eu.senla.andyavd.ems.model.entities.Group;
 import eu.senla.andyavd.ems.model.entities.Student;
-import eu.senla.andyavd.ems.service.api.IStudentService;
 
 @Transactional
 @Service
 public class StudentService implements IStudentService{
 
 	@Autowired
-	IStudentDao studentDao;
+	private IStudentDao studentDao;
 	@Autowired
-	IGroupDao groupDao;
+	private IGroupDao groupDao;
 
 	private IGenericDao<Student> getDao() {
 		return studentDao;

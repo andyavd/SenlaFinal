@@ -1,9 +1,9 @@
 package eu.senla.andyavd.ems.service.impl;
 
-import eu.senla.andyavd.ems.dao.api.IGenericDao;
-import eu.senla.andyavd.ems.dao.api.ITimetableDao;
+import eu.senla.andyavd.ems.api.dao.IGenericDao;
+import eu.senla.andyavd.ems.api.dao.ITimetableDao;
+import eu.senla.andyavd.ems.api.service.ITimetableService;
 import eu.senla.andyavd.ems.model.entities.Timetable;
-import eu.senla.andyavd.ems.service.api.ITimetableService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 public class TimetableService implements ITimetableService {
 
 	@Autowired
-	ITimetableDao timetableDao;
+	private ITimetableDao timetableDao;
 
 	private IGenericDao<Timetable> getDao() {
 		return timetableDao;

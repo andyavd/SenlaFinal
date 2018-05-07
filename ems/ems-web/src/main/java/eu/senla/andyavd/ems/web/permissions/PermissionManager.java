@@ -23,19 +23,17 @@ public class PermissionManager {
 
 	public static void loadMapForPath(String path) {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		try (InputStream fis = loader.getResourceAsStream(path)) {
+		try (InputStream inputStream = loader.getResourceAsStream(path)) {
 			Properties props = new Properties();
-			props.load(fis);
+			props.load(inputStream);
 			for (String key : props.stringPropertyNames()) {
 				Set<Role> rolesSet = new HashSet<Role>();
 				String roles = props.getProperty(key);
 				for (String role : roles.split(",")) {
-					if (role.equals("student")) {
+					if (role.equals("STUDENT")) {
 						rolesSet.add(Role.STUDENT);
-					} else if (role.equals("lecturer")) {
+					} else if (role.equals("TEACHER")) {
 						rolesSet.add(Role.TEACHER);
-					} else if (role.equals("admin")) {
-						rolesSet.add(Role.ADMIN);
 					}
 				}
 				permissionMap.put(key, rolesSet);
@@ -49,7 +47,6 @@ public class PermissionManager {
 		Set<Role> roles = permissionMap.get(path);
 		if (roles != null) {
 			return roles.contains(role);
-
 		} else {
 			return true;
 		}
